@@ -51,13 +51,13 @@ export const siteConfig: SiteConfig = {
   },
   urls: {
     // Configurable central links - matches CodeTown repository & marketplace
-    marketplace: 'https://marketplace.visualstudio.com/items?itemName=269fd3dc-07fd-6354-a7bd-3132daa6a474.codetown',
+    marketplace: 'https://marketplace.visualstudio.com/items?itemName=AyushKumarPatel.codetown',
     github: 'https://github.com/Ayushkumarpatel-AKP/CodeTown',
     releases: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/releases',
     issues: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/issues',
     production: 'https://codetown.enigmadev.tech/',
   },
-  quickInstallCommand: 'ext install 269fd3dc-07fd-6354-a7bd-3132daa6a474.codetown',
+  quickInstallCommand: 'ext install AyushKumarPatel.codetown',
   features: [
     {
       id: 'isometric-city',
