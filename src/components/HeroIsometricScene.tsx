@@ -184,7 +184,7 @@ export const HeroIsometricScene: React.FC = () => {
   const [showRelations, setShowRelations] = useState(true);
   const [isNight, setIsNight] = useState(false);
   const [showStats, setShowStats] = useState(true);
-  const [zoom, setZoom] = useState(0.95);
+  const [zoom, setZoom] = useState(1);
   const [selectedBuilding, setSelectedBuilding] = useState<BuildingNode>(BUILDINGS[4]); // Default: src/analysis/adapters.ts
   const [buildKey, setBuildKey] = useState(0);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -210,8 +210,8 @@ export const HeroIsometricScene: React.FC = () => {
   };
 
   const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.15, 1.3));
-  const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.15, 0.8));
-  const handleZoomReset = () => setZoom(0.95);
+  const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.15, 0.85));
+  const handleZoomReset = () => setZoom(1);
 
   // Quick lookup helper for relations
   const bldMap = Object.fromEntries(BUILDINGS.map((b) => [b.id, b]));
@@ -222,9 +222,9 @@ export const HeroIsometricScene: React.FC = () => {
       <div className="relative w-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white/95 shadow-[0_16px_40px_rgba(0,0,0,0.08)] backdrop-blur-sm overflow-hidden transition-all duration-300">
         
         {/* Top Header Bar with Clean Aligned Action Controls */}
-        <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-slate-100 bg-white/95 relative z-40 gap-2">
-          {/* Left: Brand + Repo Name (Never truncated) */}
-          <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+        <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-3 border-b border-slate-100 bg-white/95 relative z-40">
+          {/* Left: Brand + Repo Name */}
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
             <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg overflow-hidden flex-shrink-0 shadow-sm border border-slate-200/50">
               <img
                 src="/assets/brand/icon.png"
@@ -232,24 +232,24 @@ export const HeroIsometricScene: React.FC = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-              <span className="font-display font-bold text-foreground text-xs sm:text-sm tracking-tight whitespace-nowrap">
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+              <span className="font-display font-bold text-foreground text-xs sm:text-sm tracking-tight truncate">
                 CodeTown
               </span>
-              <span className="text-slate-300 font-light text-xs hidden sm:inline">|</span>
-              <span className="font-mono text-[11px] sm:text-xs text-muted-foreground hidden sm:flex items-center gap-1 whitespace-nowrap">
+              <span className="text-slate-300 font-light text-xs hidden xs:inline">|</span>
+              <span className="font-mono text-[11px] sm:text-xs text-muted-foreground hidden xs:flex items-center gap-1">
                 repo: <span className="text-emerald-500 font-bold">codetown</span>
               </span>
             </div>
           </div>
 
           {/* Right: Interactive Top Bar Controls */}
-          <div className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
             {/* Build City Minecraft-style Button */}
             <div className="relative inline-block">
               <button
                 onClick={handleBuildCity}
-                className="px-2 sm:px-2.5 py-1.5 rounded-lg bg-teal hover:bg-teal-600 active:scale-95 text-white font-display font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer whitespace-nowrap"
+                className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-teal hover:bg-teal-600 active:scale-95 text-white font-display font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
                 title="Drop in buildings with Minecraft block animations"
               >
                 <Hammer className="w-3.5 h-3.5" />
@@ -275,7 +275,7 @@ export const HeroIsometricScene: React.FC = () => {
             {/* Relations Toggle Button */}
             <button
               onClick={() => setShowRelations(!showRelations)}
-              className={`px-2 sm:px-2.5 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                 showRelations
                   ? 'bg-slate-100 text-teal-600 border-teal/40 shadow-xs'
                   : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
@@ -289,7 +289,7 @@ export const HeroIsometricScene: React.FC = () => {
             {/* Stats Toggle Button */}
             <button
               onClick={() => setShowStats(!showStats)}
-              className={`px-2 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-2 sm:px-2.5 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                 showStats
                   ? 'bg-slate-100 text-foreground border-slate-300 shadow-xs'
                   : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
@@ -346,7 +346,7 @@ export const HeroIsometricScene: React.FC = () => {
 
         {/* Main Isometric Viewport */}
         <div
-          className={`relative w-full h-[330px] sm:h-[370px] lg:h-[390px] overflow-hidden flex items-center justify-center transition-colors duration-500 ${
+          className={`relative w-full h-[360px] sm:h-[420px] overflow-hidden flex items-center justify-center transition-colors duration-500 ${
             isNight
               ? 'bg-gradient-to-b from-[#060A14] via-[#091122] to-[#04070D]'
               : 'bg-gradient-to-b from-[#F0FDF4] via-[#F8FAFC] to-[#E2E8F0]'
