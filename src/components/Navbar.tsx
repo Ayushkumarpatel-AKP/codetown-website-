@@ -24,12 +24,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInstall }) => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/90 backdrop-blur-md border-b border-border shadow-sm py-3'
-          : 'bg-transparent py-5'
+          ? 'bg-background/90 backdrop-blur-md border-b border-border shadow-sm py-2 sm:py-2.5'
+          : 'bg-transparent py-3 sm:py-4'
       }`}
     >
-      <div className="container mx-auto px-6 lg:px-12">
-        <nav className="flex items-center justify-between h-14 lg:h-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <nav className="flex items-center justify-between h-13 lg:h-14">
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
             <div className="w-9 h-9 rounded-xl bg-teal flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
