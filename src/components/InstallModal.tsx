@@ -58,7 +58,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ isOpen, onClose }) =
               Open directly inside Visual Studio Code
             </h4>
             <a
-              href="vscode:extension/codetown.codetown"
+              href="vscode:extension/269fd3dc-07fd-6354-a7bd-3132daa6a474.codetown"
               className="w-full py-2.5 rounded-lg text-xs font-semibold bg-foreground text-background hover:bg-foreground/90 flex items-center justify-center gap-2 shadow-sm transition-all"
             >
               <Download className="w-4 h-4 text-teal" />
@@ -73,7 +73,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ isOpen, onClose }) =
                 CLI INSTALLATION
               </span>
               <button
-                onClick={() => handleCopy('code --install-extension codetown.vsix', 'cli')}
+                onClick={() => handleCopy('code --install-extension 269fd3dc-07fd-6354-a7bd-3132daa6a474.codetown', 'cli')}
                 className="text-xs font-mono text-teal hover:underline flex items-center gap-1 cursor-pointer"
               >
                 {copiedCmd === 'cli' ? <Check className="w-3.5 h-3.5 text-teal" /> : <Copy className="w-3.5 h-3.5" />}
@@ -82,7 +82,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ isOpen, onClose }) =
             </div>
             <div className="bg-muted rounded-lg p-2.5 font-mono text-xs text-foreground flex items-center gap-2 border border-border overflow-x-auto">
               <Terminal className="w-3.5 h-3.5 text-teal flex-shrink-0" />
-              <code>code --install-extension codetown.vsix</code>
+              <code>code --install-extension 269fd3dc-07fd-6354-a7bd-3132daa6a474.codetown</code>
             </div>
           </div>
 
