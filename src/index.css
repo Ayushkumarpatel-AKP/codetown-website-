@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 220 26% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 26% 14%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 220 10% 40%;
+    --border: 210 20% 90%;
+    --teal: 174 62% 56%;
+    --coral: 355 70% 78%;
+    --gold: 48 93% 66%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.04em;
+  }
+}
+
+/* Background dot grid */
+.dot-grid-pattern {
+  background: radial-gradient(ellipse at 50% 50%, transparent 0%, hsl(210 20% 98%) 70%),
+              radial-gradient(circle, hsl(226 23% 88% / 0.15) 1px, transparent 1px);
+  background-size: 100% 100%, 36px 36px;
+}
+
+/* Minecraft Block Particle Animation */
+@keyframes voxelPop {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1.2) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(calc(var(--tw-translate-x, 0px) * 1.5), -20px) scale(1) rotate(90deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tw-translate-x, 0px) * 2), 30px) scale(0.4) rotate(180deg);
+  }
+}
+
+.animate-voxel-pop {
+  animation: voxelPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Minecraft Block Place Drop-in Bounce */
+@keyframes minecraftDropIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -120%) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -95%) scale(1.08);
+  }
+  80% {
+    transform: translate(-50%, -103%) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+}
+
+.animate-minecraft-drop {
+  animation: minecraftDropIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Car driving along isometric road */
+@keyframes carDriveIso {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(60px, 30px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.animate-car-iso {
+  animation: carDriveIso 6s ease-in-out infinite;
+}
+
+/* Relations Highway Glow */
+@keyframes relationLaser {
+  0%, 100% {
+    stroke-opacity: 0.7;
+    filter: drop-shadow(0 0 4px #0D9488);
+  }
+  50% {
+    stroke-opacity: 1;
+    filter: drop-shadow(0 0 10px #2DD4BF) drop-shadow(0 0 18px #14B8A6);
+  }
+}
+
+.relation-laser {
+  animation: relationLaser 2s ease-in-out infinite;
+}
+
+/* Island Shake / Drop on Build City */
+@keyframes islandRebuildBounce {
+  0% {
+    transform: scale(0.96) translateY(-12px);
+  }
+  40% {
+    transform: scale(1.02) translateY(6px);
+  }
+  75% {
+    transform: scale(0.99) translateY(-2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-island-build {
+  animation: islandRebuildBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Subtle district badge float */
+@keyframes districtPillFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.animate-district-float {
+  animation: districtPillFloat 3s ease-in-out infinite;
+}
+
+/* Waterfall flow animation */
+@keyframes waterfallFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-waterfall {
+  stroke-dasharray: 8 4;
+  animation: waterfallFlow 1s linear infinite;
+}
+
+/* Moving dependency particles along relations */
+@keyframes dashStream {
+  0% {
+    stroke-dashoffset: 60;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-dash-stream {
+  animation: dashStream 1.8s linear infinite;
+}
