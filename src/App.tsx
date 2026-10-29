@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CrewStage } from './CrewStage';
 import { CursorFx } from './CursorFx';
+import { CraftBg } from './CraftBg';
 import { SafetyNet } from './SafetyNet';
 import { engines, features, shots, site } from './config/site';
 
@@ -170,6 +171,7 @@ const Footer: React.FC = () => (
 
 export const App: React.FC = () => (
   <>
+    <CraftBg />
     <CursorFx />
     <Nav />
     <main>

@@ -4,9 +4,29 @@ interface Bit { x: number; y: number; vx: number; vy: number; life: number; max:
 
 const COLORS = ['#c9a63a', '#e9e3cf', '#8f7a2a', '#d98e2b'];
 
+const ARROW = [
+  'X...........', 'XX..........', 'XFX.........', 'XFFX........', 'XFFFX.......', 'XFFFFX......', 'XFFFFFX.....', 'XFFFFFFX....',
+  'XFFFFFFFX...', 'XFFFFFXXXX..', 'XFFXFFX.....', 'XFX.XFFX....', 'XX..XFFX....', 'X....XFFX...', '.....XFFX...', '......XX....',
+];
+const HAMMER = [
+  '..XXXXXXXX......', '.XCCCCCCCCX.....', '.XCCBBBBCCCX....', '.XCCCCCCCCCX....', '..XCCCCCCCX.....', '...XXXXXXX......', '.....XHHX.......',
+  '.....XHHX.......', '.....XHHX.......', '.....XHHX.......', '.....XHHX.......', '.....XHHX.......', '.....XHHX.......', '.....XXXX.......',
+];
+const PALETTE: Record<string, string> = { X: '#14110b', F: '#e9e3cf', C: '#c9a63a', B: '#8f7a2a', H: '#b08a4a' };
+
+/** A crisp pixel-art cursor as a CSS value: 2 screen pixels per art pixel. */
+function pixelCursor(rows: string[], hotX: number, hotY: number, fallback: string): string {
+  const px = 2;
+  const w = rows[0].length, h = rows.length;
+  let rects = '';
+  rows.forEach((row, y) => { for (let x = 0; x < row.length; x++) { const c = PALETTE[row[x]]; if (c) rects += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + c + '"/>'; } });
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w * px + '" height="' + h * px + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges">' + rects + '</svg>';
+  return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '") ' + hotX * px + ' ' + hotY * px + ', ' + fallback;
+}
+
 /**
- * Retro cursor fun: a trail of falling pixels, a burst on click, and a pixel crosshair that
- * snaps to a 4px grid. Skipped for touch screens and for prefers-reduced-motion.
+ * Retro cursor fun: pixel arrow and builder's-hammer cursors in the site colors, a trail of falling
+ * pixels and a burst on click. Skipped for touch screens and for prefers-reduced-motion.
  */
 export const CursorFx: React.FC = () => {
   const cv = useRef<HTMLCanvasElement>(null);
@@ -49,11 +69,6 @@ export const CursorFx: React.FC = () => {
         g.fillRect(Math.round(b.x / 2) * 2, Math.round(b.y / 2) * 2, b.s, b.s);
       }
       g.globalAlpha = 1;
-      // pixel crosshair on a 4px grid
-      const cx = Math.round(mx / 4) * 4, cy = Math.round(my / 4) * 4;
-      g.fillStyle = '#e9e3cf';
-      g.fillRect(cx - 10, cy - 1, 6, 2); g.fillRect(cx + 4, cy - 1, 6, 2);
-      g.fillRect(cx - 1, cy - 10, 2, 6); g.fillRect(cx - 1, cy + 4, 2, 6);
       raf = requestAnimationFrame(frame);
     };
     window.addEventListener('pointermove', move, { passive: true });
@@ -72,7 +87,10 @@ export const CursorFx: React.FC = () => {
       tilt.style.transform = `perspective(900px) rotateY(${sx * 4}deg) rotateX(${-sy * 3}deg)`;
     };
     window.addEventListener('pointermove', onTilt, { passive: true });
-    document.documentElement.classList.add('fx');
+    const root = document.documentElement;
+    root.style.setProperty('--cur', pixelCursor(ARROW, 0, 0, 'default'));
+    root.style.setProperty('--cur-link', pixelCursor(HAMMER, 3, 1, 'pointer'));
+    root.classList.add('fx');
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('pointermove', move);
@@ -80,6 +98,8 @@ export const CursorFx: React.FC = () => {
       window.removeEventListener('pointermove', onTilt);
       window.removeEventListener('resize', size);
       document.documentElement.classList.remove('fx');
+      document.documentElement.style.removeProperty('--cur');
+      document.documentElement.style.removeProperty('--cur-link');
     };
   }, []);
 

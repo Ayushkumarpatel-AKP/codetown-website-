@@ -1,46 +1,32 @@
-# CodeTown — One-Page Premium Landing Website
+# CodeTown website
 
-Official production landing website for **CodeTown**, the VS Code extension that visualizes your codebase as an interactive 3D isometric city.
+The landing page for **CodeTown**, the VS Code extension that turns your codebase into a living isometric city and gives you a crew of eight AI characters to command from a game HUD.
 
-🌐 **Live Website:** [codetown.enigmadev.tech](https://codetown.enigmadev.tech/)  
-👨‍💻 **Creator:** AKP ([EnigmaDev](https://github.com/Ayushkumarpatel-AKP))  
-📄 **License:** MIT
+Live: [codetown.enigmadev.tech](https://codetown.enigmadev.tech/) · Extension: [Ayushkumarpatel-AKP/CodeTown](https://github.com/Ayushkumarpatel-AKP/CodeTown) · Made by AKP ([EnigmaDev](https://enigmadev.tech)) · MIT
 
----
+## What is on the page
 
-## 🚀 Features
+- **Hero**: the real extension screenshot in a retro monitor, with the official CodeTown logo.
+- **Pick your fighter**: a playable character-select demo. Choose one of the eight characters, dispatch a starter prompt, watch the pixel face react, STAMP or DENY a permit, then use **Undo changes** and **Run tests** on the mission report. The output is simulated and labelled as such.
+- **Safety net**: the real mission-report screenshot zooming in on files changed, Undo and test results.
+- **One repo, eight views**: an auto-playing gallery with a magnifier lens (Crew Hall, Mission report, Modern, Hi-fi, Village, Night + relations, Crews at work, Inspector).
+- **Features, Engines, Install**: what it does, which models it runs on (free and local included), and three steps to install.
 
-- **Code-Rendered 3D Isometric City:** Interactive 2:1 isometric projection built with pure code and verified sprite packs.
-- **Dynamic Dependency Highway Lasers:** Animated relations curves tracing imports between modules.
-- **Interactive File Inspector HUD:** Real-time metrics (lines, imports, fan-in, AST findings) when clicking any building.
-- **Minecraft Tactile 3D Buttons:** Chunky beveled buttons with bursting voxel cube particles and drop-in animations.
-- **Day / Night Ambiance Toggle:** Seamlessly shifts between daylight and cyberpunk midnight with glowing windows.
-- **Zoom & Recenter Controls:** Interactive scale and pan viewports.
-- **100% Offline & Private:** Zero cloud dependencies or telemetry.
+## Look and feel
 
----
+An ancient-computer theme: dark phosphor-brown background, off-white text, tarnished brass accents, VT323 and JetBrains Mono, faint scanlines, a builder's-tools backdrop, pixel arrow and hammer cursors. Cursor effects, tilt and drifting backdrop are switched off for touch screens and `prefers-reduced-motion`.
 
-## 🛠️ Tech Stack
+## Stack
 
-- **Framework:** React 18 + TypeScript + Vite
-- **Styling:** Tailwind CSS + Custom Isometric CSS Keyframes
-- **Icons:** Lucide React + Custom SVG Brand Badges
-- **Hosting / Deployment:** Vercel
+React 18, TypeScript, Vite, Tailwind CSS (utilities only; the theme is plain CSS in `src/index.css`). The pixel faces are drawn in code by `src/lib/faces.ts`, a copy of the extension's `src/webview/faces.ts`; keep the two in sync.
 
----
-
-## 💻 Local Development
+## Develop
 
 ```bash
-# Install dependencies
 npm install
-
-# Start Vite development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
+npm run dev       # http://localhost:5173
+npm run build     # type-check and build to dist/
 npm run preview
 ```
+
+Screenshots in `public/assets/screenshots/` are captured from the extension with `node scripts/shoot.js` in the extension repository.

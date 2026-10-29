@@ -1,6 +1,6 @@
 export const site = {
   name: 'CodeTown',
-  version: '0.10.0',
+  version: '0.10.1',
   tagline: 'Your codebase as a living city. Command a crew of AI characters from a game HUD, and undo anything they break.',
   urls: {
     marketplace: 'https://marketplace.visualstudio.com/items?itemName=AyushKumarPatel.codetown',

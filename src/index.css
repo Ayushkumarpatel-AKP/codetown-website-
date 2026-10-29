@@ -120,7 +120,10 @@ code { font-family: var(--mono); background: var(--bg); border: 1px solid var(--
 /* ---- retro touches ---- */
 body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 3px, rgba(0,0,0,.09) 3px, rgba(0,0,0,.09) 4px); }
 .cursor-fx { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 60; }
-html.fx, html.fx a, html.fx button { cursor: none; }
+html.fx, html.fx body { cursor: var(--cur, auto); }
+html.fx a, html.fx button, html.fx [role="tab"], html.fx [role="radio"], html.fx summary, html.fx .slot, html.fx .cart { cursor: var(--cur-link, pointer); }
+html.fx button:disabled { cursor: var(--cur, not-allowed); }
+html.fx .viewer { cursor: var(--cur, crosshair); }
 /* retro monitor: off-white plastic case, tarnished brass trim, glowing screen */
 .monitor { position: relative; z-index: 2; box-shadow: 0 24px 40px rgba(0,0,0,.5); border-radius: 14px; } /* above the scanlines, no filters or transforms: the screenshot stays pixel-sharp */
 .bezel { background: #d8d0b6; border: 3px solid #8a7f5a; border-radius: 14px; padding: 18px 18px 10px; box-shadow: inset 0 0 0 3px #efe9d4, inset 0 -6px 0 #b9af8f; }
@@ -201,7 +204,7 @@ html.fx, html.fx a, html.fx button { cursor: none; }
 .sec.compact .sec-head { margin-bottom: 18px; }
 .sec.compact .sec-head h2 { font-size: clamp(34px, 4vw, 52px); }
 .gallery { display: grid; grid-template-columns: minmax(0, 1fr) 232px; gap: 16px; align-items: start; max-width: 1080px; }
-.viewer { position: relative; padding: 8px; background: var(--panel); border: 2px solid var(--line); border-radius: 3px; cursor: crosshair; overflow: hidden; }
+.viewer { position: relative; padding: 8px; background: var(--panel); border: 2px solid var(--line); border-radius: 3px; overflow: hidden; }
 .viewer .c { position: absolute; z-index: 3; width: 14px; height: 14px; border: 3px solid var(--accent); pointer-events: none; }
 .viewer .tl { top: -3px; left: -3px; border-right: 0; border-bottom: 0; } .viewer .tr { top: -3px; right: -3px; border-left: 0; border-bottom: 0; }
 .viewer .bl { bottom: -3px; left: -3px; border-right: 0; border-top: 0; } .viewer .br { bottom: -3px; right: -3px; border-left: 0; border-top: 0; }
@@ -258,3 +261,10 @@ html.fx, html.fx a, html.fx button { cursor: none; }
 .safe-steps .overview { display: block; text-align: center; padding: 8px; font: 700 11px var(--mono); letter-spacing: .12em; border-style: dashed; }
 @media (max-width: 1000px) { .safety { grid-template-columns: 1fr; } .safe-steps button:hover, .safe-steps button.on { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .safe-clip img { transition: none; } }
+
+/* ---- builder's backdrop: faint, behind everything ---- */
+.craft-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; --py: 0px; }
+.craft-iso { position: absolute; inset: 0; background-image: repeating-linear-gradient(30deg, rgba(201,166,58,.05) 0 1px, transparent 1px 56px), repeating-linear-gradient(-30deg, rgba(201,166,58,.05) 0 1px, transparent 1px 56px); }
+.craft-tools { position: absolute; inset: -400px 0 -400px 0; background-size: 760px 760px; background-position: 0 var(--py); opacity: .06; image-rendering: pixelated; }
+.craft-fade { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 38%, rgba(20,17,11,.55) 0%, rgba(20,17,11,0) 62%); }
+@media (max-width: 700px) { .craft-tools { opacity: .05; } }
