@@ -362,3 +362,6 @@ html.fx .viewer { cursor: var(--cur, crosshair); }
 .maker-toast { position: absolute; right: 18px; bottom: 16px; padding: 8px 14px; background: var(--green); color: #1a1408; font: 700 12px var(--mono); border: 2px solid #1a1408; border-radius: 3px; animation: fadeIn .3s ease both; }
 @media (max-width: 800px) { .maker-card { grid-template-columns: 1fr; } .quests { grid-template-columns: repeat(2, minmax(0, 1fr)); } .speech::before { display: none; } .maker-stage .face { width: 168px; height: 168px; } }
 @media (prefers-reduced-motion: reduce) { .maker-stage, .maker-stage.working, .maker-stage.done, .spark { animation: none; } }
+
+.maker-stage .portrait { display: block; width: 288px; max-width: 100%; height: auto; aspect-ratio: 1; image-rendering: pixelated; border: 4px solid var(--line); background: #14110b; }
+@media (max-width: 800px) { .maker-stage .portrait { width: 220px; } }
