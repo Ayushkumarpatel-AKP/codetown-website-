@@ -1,7 +1,7 @@
 export const site = {
   name: 'CodeTown',
-  version: '0.9.5',
-  tagline: 'Your codebase as a living city. Command a crew of AI characters from a game HUD.',
+  version: '0.10.0',
+  tagline: 'Your codebase as a living city. Command a crew of AI characters from a game HUD, and undo anything they break.',
   urls: {
     marketplace: 'https://marketplace.visualstudio.com/items?itemName=AyushKumarPatel.codetown',
     github: 'https://github.com/Ayushkumarpatel-AKP/CodeTown',
@@ -51,6 +51,8 @@ export const crew: Character[] = [
 ];
 
 export const shots = [
+  { id: 'hall', label: 'Crew Hall', src: '/assets/screenshots/hud-hall.png', note: 'Archie on his stage: level, stats and starter prompts. The whole crew is one click away.' },
+  { id: 'report', label: 'Mission report', src: '/assets/screenshots/hud-report.png', note: 'Files changed, Undo, test results, and a reverted order. All in the crew list.' },
   { id: 'city', label: 'Modern', src: '/assets/screenshots/hud-city.png', note: 'Landmarks, roads and rivers built from your folders. Every building is a real file.' },
   { id: 'hifi', label: 'Hi-fi', src: '/assets/screenshots/hud-hifi.png', note: 'Neon towers, helipads and glowing windows for big repositories.' },
   { id: 'village', label: 'Village', src: '/assets/screenshots/hud-village.png', note: 'Cottages and cobbles for small projects. Same data, different art.' },
@@ -64,6 +66,9 @@ export const features = [
   { tag: 'CREW', title: 'Eight characters, ready to work', text: 'Each has a pixel face, a job, a thinking level and four starter prompts. Scout, Archie and Reviewer are read-only by design.' },
   { tag: 'LIVE', title: 'Watch construction', text: 'Cranes rise over the files a crew edits. Busy files glow with heat from git history. Errors bring rain.' },
   { tag: 'SAFE', title: 'You stamp every risky move', text: 'Permits show exactly what a crew wants to run. STAMP or DENY. A spend cap and a HALT button stop runaway work.' },
+  { tag: 'UNDO', title: 'One-click Undo', text: 'A restore point is taken before an editing crew starts. Undo puts every changed file back and removes new ones, and keeps your own uncommitted work.' },
+  { tag: 'TESTS', title: 'Tests in the report', text: 'Run your tests from the mission report, or automatically after each order. PASS or FAIL with the output, right under the files that changed.' },
+  { tag: 'LEVEL', title: 'Characters level up', text: 'Every finished order earns its character experience. See speed, depth, safety and cost bars on each stage.' },
   { tag: 'PR', title: 'Pull-request cities', text: 'Every open PR becomes its own read-only city with added, changed and removed buildings marked.' },
   { tag: 'ENGINE', title: 'Bring any model', text: 'Claude Agent SDK, OpenCode with free models, Groq, OpenRouter, Gemini, Ollama, LM Studio or any OpenAI-compatible server. Pick the model from a live list.' },
 ];

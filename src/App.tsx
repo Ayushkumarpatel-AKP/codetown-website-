@@ -1,29 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { faceCanvas, FaceMood } from './lib/faces';
+import React, { useEffect, useState } from 'react';
+import { CrewStage } from './CrewStage';
 import { CursorFx } from './CursorFx';
-import { Character, crew, engines, features, shots, site } from './config/site';
-
-/** A pixel portrait drawn in code by the same routine the extension uses. */
-const Face: React.FC<{ id: string; mood: FaceMood; effort: string; px?: number; className?: string }> = ({ id, mood, effort, px = 3, className }) => {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const c = ref.current;
-    if (!c) return;
-    const src = faceCanvas(id, mood, effort, px);
-    c.width = src.width; c.height = src.height;
-    const g = c.getContext('2d')!;
-    g.clearRect(0, 0, c.width, c.height);
-    g.drawImage(src, 0, 0);
-  }, [id, mood, effort, px]);
-  return <canvas ref={ref} className={'face ' + (className ?? '')} aria-hidden="true" />;
-};
-
-const Bracket: React.FC<{ children: React.ReactNode; className?: string; tilt?: boolean }> = ({ children, className, tilt }) => (
-  <div className={'frame ' + (className ?? '')} data-tilt={tilt ? '' : undefined}>
-    <i className="c tl" /><i className="c tr" /><i className="c bl" /><i className="c br" />
-    {children}
-  </div>
-);
+import { SafetyNet } from './SafetyNet';
+import { engines, features, shots, site } from './config/site';
 
 const SectionHead: React.FC<{ tag: string; title: string; sub?: string }> = ({ tag, title, sub }) => (
   <header className="sec-head">
@@ -57,60 +36,84 @@ const Hero: React.FC = () => (
         <li>8 characters</li><li>12 engines</li><li>3 city styles</li><li>0 external art assets</li>
       </ul>
     </div>
-    <Bracket className="hero-shot" tilt>
-      <img src="/assets/screenshots/hud-hall.png" alt="CodeTown in VS Code: the isometric city with the Crew Hall open" width={1600} height={900} />
-    </Bracket>
-  </section>
-);
-
-const CrewCard: React.FC<{ c: Character }> = ({ c }) => {
-  const [hover, setHover] = useState(false);
-  return (
-    <article className="card char" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)} tabIndex={0}>
-      <div className="char-top">
-        <Face id={c.id} mood={hover ? 'working' : 'idle'} effort={c.effort} px={4} />
-        <div>
-          <h3>{c.name}</h3>
-          <span className="role">{c.title}</span>
-        </div>
+    <div className="monitor">
+      <div className="bezel">
+        <div className="screen"><img src="/assets/screenshots/hud-hero.png" alt="CodeTown in VS Code: the isometric city with the Crew Hall open" width={3200} height={1800} fetchPriority="high" /></div>
+        <div className="chin"><i className="led" /><span>CODETOWN</span><em>MODEL CT-{site.version.replace(/\./g, '')}</em></div>
       </div>
-      <p>{c.blurb}</p>
-      <div className="tags">
-        <span>thinks {c.effort === 'low' ? 'quick' : c.effort === 'high' ? 'careful' : 'balanced'}</span>
-        <span>{c.tier}</span>
-        <span className={c.readOnly ? 'ro' : ''}>{c.readOnly ? 'read-only' : 'asks before editing'}</span>
-      </div>
-      <div className="prompts">{c.prompts.map((p) => <button key={p} type="button" tabIndex={-1}>{p}</button>)}</div>
-    </article>
-  );
-};
-
-const CrewHall: React.FC = () => (
-  <section id="crew" className="sec">
-    <SectionHead tag="CREW HALL" title="Meet the crew" sub="Pick a character, press a starter prompt, press DISPATCH. Each one has its own face, job and rules. Hover a card to see it get to work." />
-    <div className="grid chars">{crew.map((c) => <CrewCard key={c.id} c={c} />)}</div>
-    <div className="moods">
-      <span className="tag">FACES FOLLOW THE REAL STATE</span>
-      {(['idle', 'working', 'waiting', 'done', 'failed'] as FaceMood[]).map((m) => (
-        <figure key={m}><Face id="builder" mood={m} effort="medium" px={3} /><figcaption>{m === 'waiting' ? 'permit' : m}</figcaption></figure>
-      ))}
+      <div className="stand" />
     </div>
   </section>
 );
 
+const CrewHall: React.FC = () => (
+  <section id="crew" className="sec">
+    <SectionHead tag="CREW HALL" title="Pick your fighter" sub="Eight characters, each with its own face, job and rules. Choose one, dispatch an order and watch the face react. Try STAMP and DENY." />
+    <CrewStage />
+  </section>
+);
+
+const AUTO_MS = 5200;
+
+/** Compact viewer: cartridge list on the side, auto-advancing, with a magnifier lens on hover. */
 const Gallery: React.FC = () => {
   const [i, setI] = useState(0);
+  const [auto, setAuto] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const [lens, setLens] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
   const s = shots[i];
+
+  useEffect(() => {
+    if (!auto || paused) return;
+    const t = window.setTimeout(() => setI((k) => (k + 1) % shots.length), AUTO_MS);
+    return () => window.clearTimeout(t);
+  }, [i, auto, paused]);
+
+  const choose = (k: number): void => { setAuto(false); setI(k); };
+
+  const onMove = (e: React.PointerEvent<HTMLDivElement>): void => {
+    if (e.pointerType !== 'mouse') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    setLens({ x: e.clientX - r.left, y: e.clientY - r.top, w: r.width, h: r.height });
+  };
+
+  const LENS = 190, ZOOM = 2.4;
   return (
-    <section id="city" className="sec">
-      <SectionHead tag="THE CITY" title="One repo, three looks" sub="Real screenshots of CodeTown running on its own source code. All art is drawn in code; nothing is imported." />
-      <div className="tabs" role="tablist">
-        {shots.map((x, k) => (
-          <button key={x.id} role="tab" aria-selected={k === i} className={k === i ? 'on' : ''} onClick={() => setI(k)}>{x.label}</button>
-        ))}
+    <section id="city" className="sec compact">
+      <SectionHead tag="THE CITY" title="One repo, eight views" sub="Real screenshots of CodeTown running on its own source code. Hover the screen to magnify. Pick a cartridge to switch." />
+      <div className="gallery">
+        <div className="viewer-wrap">
+          <div className="viewer" onPointerMove={onMove} onPointerLeave={() => { setLens(null); setPaused(false); }} onPointerEnter={() => setPaused(true)}>
+            <i className="c tl" /><i className="c tr" /><i className="c bl" /><i className="c br" />
+            <img key={s.id} className="wipe" src={s.src} alt={s.label + ' view of CodeTown'} width={1600} height={900} />
+            <span className="badge">&#9654; {s.label.toUpperCase()}</span>
+            <span className="count">{String(i + 1).padStart(2, '0')}/{String(shots.length).padStart(2, '0')}</span>
+            {lens && (
+              <span
+                className="lens"
+                style={{
+                  left: lens.x - LENS / 2, top: lens.y - LENS / 2, width: LENS, height: LENS,
+                  backgroundImage: 'url(' + s.src + ')',
+                  backgroundSize: lens.w * ZOOM + 'px ' + lens.h * ZOOM + 'px',
+                  backgroundPosition: (-(lens.x * ZOOM - LENS / 2)) + 'px ' + (-(lens.y * ZOOM - LENS / 2)) + 'px',
+                }}
+              />
+            )}
+          </div>
+          <p className="note">{s.note}</p>
+        </div>
+
+        <div className="carts" role="tablist" aria-label="Views">
+          {shots.map((x, k) => (
+            <button key={x.id} type="button" role="tab" aria-selected={k === i} className={'cart' + (k === i ? ' on' : '')} onClick={() => choose(k)}>
+              <img src={x.src} alt="" loading="lazy" width={96} height={54} />
+              <span>{x.label}</span>
+              {k === i && auto && !paused && <i className="prog" style={{ animationDuration: AUTO_MS + 'ms' }} key={'p' + i} />}
+            </button>
+          ))}
+          <button type="button" className="autobtn" onClick={() => setAuto((v) => !v)} aria-pressed={auto}>{auto ? '\u275A\u275A AUTO PLAY' : '\u25B6 AUTO PLAY'}</button>
+        </div>
       </div>
-      <Bracket><img key={s.id} className="shot" src={s.src} alt={s.label + ' view of CodeTown'} loading="lazy" width={1600} height={900} /></Bracket>
-      <p className="note">{s.note}</p>
     </section>
   );
 };
@@ -172,6 +175,7 @@ export const App: React.FC = () => (
     <main>
       <Hero />
       <CrewHall />
+      <SafetyNet />
       <Gallery />
       <Features />
       <Engines />
