@@ -31,7 +31,7 @@ const Hero: React.FC = () => (
       <p className="lede">{site.tagline}</p>
       <div className="cta">
         <a className="btn primary" href="#install">Install</a>
-        <a className="btn" href={site.urls.releases} target="_blank" rel="noreferrer">Download VSIX</a>
+        <a className="btn" href={site.urls.vsix} download>Download VSIX</a>
       </div>
       <ul className="chips">
         <li>8 characters</li><li>12 engines</li><li>3 city styles</li><li>0 external art assets</li>
@@ -149,7 +149,7 @@ const Install: React.FC = () => {
     <section id="install" className="sec">
       <SectionHead tag="INSTALL" title="Three steps to your city" />
       <ol className="steps">
-        <li><b>01</b><div><h3>Install the extension</h3><p>Download <code>codetown.vsix</code> from the latest release, then run:</p>
+        <li><b>01</b><div><h3>Install the extension</h3><p><a href={site.urls.vsix} download>Download <code>codetown.vsix</code></a> (version {site.version}), then run:</p>
           <div className="cmd"><code>{site.install}</code><button type="button" onClick={copy}>{done ? 'Copied' : 'Copy'}</button></div></div></li>
         <li><b>02</b><div><h3>Open the town</h3><p>Press <code>Ctrl+Shift+P</code> and run <code>CodeTown: Open Town</code>, or click the CodeTown icon in the activity bar.</p></div></li>
         <li><b>03</b><div><h3>Pick a character and give an order</h3><p>Open <b>Crew</b>, choose a character, press a starter prompt. Add an API key, or choose OpenCode for free models.</p></div></li>

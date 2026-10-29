@@ -1,11 +1,12 @@
 export const site = {
   name: 'CodeTown',
-  version: '0.10.1',
+  version: '0.10.2',
   tagline: 'Your codebase as a living city. Command a crew of AI characters from a game HUD, and undo anything they break.',
   urls: {
     marketplace: 'https://marketplace.visualstudio.com/items?itemName=AyushKumarPatel.codetown',
     github: 'https://github.com/Ayushkumarpatel-AKP/CodeTown',
     releases: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/releases',
+    vsix: '/downloads/codetown.vsix',
     issues: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/issues',
   },
   install: 'code --install-extension codetown.vsix',
