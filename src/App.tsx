@@ -15,7 +15,7 @@ const SectionHead: React.FC<{ tag: string; title: string; sub?: string }> = ({ t
 
 const Nav: React.FC = () => (
   <nav className="nav">
-    <a href="#top" className="brand"><img src="/assets/brand/icon.png" alt="" width={28} height={28} /><span>CODETOWN</span><em>v{site.version}</em></a>
+    <a href="#top" className="brand"><img src="/assets/brand/logo-c-256.png" alt="CodeTown" width={34} height={34} /><span>CODETOWN</span><em>v{site.version}</em></a>
     <div className="links">
       <a href="#crew">Crew</a><a href="#city">City</a><a href="#features">Features</a><a href="#engines">Engines</a><a href="#install">Install</a>
     </div>
@@ -160,7 +160,7 @@ const Install: React.FC = () => {
 
 const Footer: React.FC = () => (
   <footer className="foot">
-    <div><img src="/assets/brand/icon.png" alt="" width={22} height={22} /> <b>CODETOWN</b> v{site.version} · Made by AKP</div>
+    <div><img src="/assets/brand/logo-c-256.png" alt="" width={22} height={22} /> <b>CODETOWN</b> v{site.version} · Made by AKP</div>
     <div className="links">
       <a href={site.urls.github} target="_blank" rel="noreferrer">GitHub</a>
       <a href={site.urls.releases} target="_blank" rel="noreferrer">Releases</a>
