@@ -1,15 +1,28 @@
 export const site = {
   name: 'CodeTown',
-  version: '0.10.2',
+  version: '0.10.3',
   tagline: 'Your codebase as a living city. Command a crew of AI characters from a game HUD, and undo anything they break.',
   urls: {
     marketplace: 'https://marketplace.visualstudio.com/items?itemName=AyushKumarPatel.codetown',
+    // opens VS Code on the extension page, where one click installs it
+    vscode: 'vscode:extension/AyushKumarPatel.codetown',
     github: 'https://github.com/Ayushkumarpatel-AKP/CodeTown',
     releases: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/releases',
     vsix: '/downloads/codetown.vsix',
     issues: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/issues',
   },
-  install: 'code --install-extension codetown.vsix',
+  install: 'code --install-extension AyushKumarPatel.codetown',
+};
+
+/** The person behind CodeTown. */
+export const maker = {
+  name: 'Ayush Kumar Patel',
+  role: 'Founder & CEO',
+  company: 'EnigmaDev',
+  brand: 'https://www.enigmadev.tech/',
+  github: 'https://github.com/Ayushkumarpatel-AKP',
+  linkedin: 'https://www.linkedin.com/in/ayush-kumar-patel-50276a281/',
+  email: 'ayushkumarpatel969@gmail.com',
 };
 
 export interface Character {

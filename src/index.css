@@ -324,3 +324,41 @@ html.fx .viewer { cursor: var(--cur, crosshair); }
 .capfade { animation: fadeIn .7s ease both; }
 .vcr-track .fill { animation-timing-function: linear; }
 @media (prefers-reduced-motion: reduce) { .reel-in, .capfade { animation: none; } }
+
+/* ---- install button, maker card ---- */
+.installwrap { display: inline-flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.install-vs { gap: 10px; }
+.install-vs svg { width: 16px; height: 16px; fill: currentColor; }
+.install-hint { max-width: 340px; font-size: 12px; line-height: 1.5; color: var(--amber); }
+.install-hint a { text-decoration: underline; }
+.install-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; margin-bottom: 8px; }
+.btn.primary.ghost { padding: 7px 14px; }
+@media (max-width: 900px) { .nav .btn.ghost:not(.primary) { display: none; } }
+
+.maker-card { position: relative; display: grid; grid-template-columns: minmax(220px, 3fr) minmax(0, 7fr); gap: 20px; padding: 22px; max-width: 980px; background: var(--panel); border: 2px solid var(--line); border-radius: 3px; box-shadow: 0 0 40px rgba(201,166,58,.08); }
+.maker-face { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: var(--bg); border: 2px solid var(--line2); border-radius: 3px; padding: 18px; }
+.maker-stage { display: flex; flex-direction: column; align-items: center; animation: idleBob 3.2s ease-in-out infinite; }
+.maker-stage .face { width: 216px; height: 216px; max-width: 100%; border: 4px solid var(--line); }
+.maker-stage .floor { width: 70%; height: 10px; margin-top: 12px; background: rgba(0,0,0,.5); border-radius: 50%; }
+.maker-stage.working { animation: workShake .6s ease-in-out infinite; }
+.maker-stage.done { animation: cheer .7s ease-out infinite; }
+.maker-lv { font: 700 11px var(--mono); letter-spacing: .14em; color: var(--accent); }
+.maker-info h3 { margin: 0; font: 400 clamp(36px, 4.4vw, 54px)/1 var(--display); letter-spacing: .03em; }
+.maker-info .role { display: block; margin-top: 4px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.maker-info .role a { text-decoration: underline; }
+.speech { position: relative; margin: 14px 0 16px; padding: 10px 14px; min-height: 52px; background: var(--panel2); border: 2px solid var(--line); border-radius: 3px; color: var(--ink); font-size: 14px; }
+.speech::before { content: ''; position: absolute; left: -10px; top: 18px; border: 6px solid transparent; border-right-color: var(--line); }
+.maker-info .stats { margin-bottom: 16px; }
+.quests { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.quest { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px; background: var(--panel2); border: 2px solid var(--line); border-radius: 3px; font: 700 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); transition: transform .25s var(--ease), border-color .2s var(--ease), box-shadow .25s var(--ease); }
+.quest svg { width: 28px; height: 28px; fill: var(--accent); }
+.quest:hover, .quest:focus-visible { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 6px 0 var(--accent2); }
+.maker-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-top: 16px; font-size: 12px; color: var(--dim); }
+.maker-foot b { color: var(--amber); }
+.maker-foot a { color: var(--accent); text-decoration: underline; }
+.spark { position: absolute; width: 8px; height: 8px; background: var(--accent); pointer-events: none; z-index: 5; animation: spark 1s ease-out both; }
+.spark:nth-child(3n) { background: var(--ink); } .spark:nth-child(3n+1) { background: var(--amber); }
+@keyframes spark { from { transform: translate(0, 0); opacity: 1; } to { transform: translate(var(--dx, 0px), -70px); opacity: 0; } }
+.maker-toast { position: absolute; right: 18px; bottom: 16px; padding: 8px 14px; background: var(--green); color: #1a1408; font: 700 12px var(--mono); border: 2px solid #1a1408; border-radius: 3px; animation: fadeIn .3s ease both; }
+@media (max-width: 800px) { .maker-card { grid-template-columns: 1fr; } .quests { grid-template-columns: repeat(2, minmax(0, 1fr)); } .speech::before { display: none; } .maker-stage .face { width: 168px; height: 168px; } }
+@media (prefers-reduced-motion: reduce) { .maker-stage, .maker-stage.working, .maker-stage.done, .spark { animation: none; } }

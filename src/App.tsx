@@ -4,7 +4,9 @@ import { CursorFx } from './CursorFx';
 import { CraftBg } from './CraftBg';
 import { MonitorPlayer } from './MonitorPlayer';
 import { SafetyNet } from './SafetyNet';
-import { engines, features, shots, site } from './config/site';
+import { InstallButton } from './InstallButton';
+import { Maker } from './Maker';
+import { engines, features, maker, shots, site } from './config/site';
 
 const SectionHead: React.FC<{ tag: string; title: string; sub?: string }> = ({ tag, title, sub }) => (
   <header className="sec-head">
@@ -18,9 +20,10 @@ const Nav: React.FC = () => (
   <nav className="nav">
     <a href="#top" className="brand"><img src="/assets/brand/logo-c-256.png" alt="CodeTown" width={34} height={34} /><span>CODETOWN</span><em>v{site.version}</em></a>
     <div className="links">
-      <a href="#crew">Crew</a><a href="#city">City</a><a href="#features">Features</a><a href="#engines">Engines</a><a href="#install">Install</a>
+      <a href="#crew">Crew</a><a href="#city">City</a><a href="#features">Features</a><a href="#engines">Engines</a><a href="#install">Install</a><a href="#maker">Maker</a>
     </div>
     <a className="btn ghost" href={site.urls.github} target="_blank" rel="noreferrer">GitHub</a>
+    <a className="btn primary ghost" href={site.urls.vscode}>Install</a>
   </nav>
 );
 
@@ -31,7 +34,7 @@ const Hero: React.FC = () => (
       <h1>CODE<span>TOWN</span></h1>
       <p className="lede">{site.tagline}</p>
       <div className="cta">
-        <a className="btn primary" href="#install">Install</a>
+        <InstallButton />
         <a className="btn" href={site.urls.vsix} download>Download VSIX</a>
       </div>
       <ul className="chips">
@@ -143,8 +146,14 @@ const Install: React.FC = () => {
   return (
     <section id="install" className="sec">
       <SectionHead tag="INSTALL" title="Three steps to your city" />
+      <div className="install-row">
+        <InstallButton label="Install in VS Code" />
+        <a className="btn" href={site.urls.marketplace} target="_blank" rel="noreferrer">Open Marketplace page</a>
+        <a className="btn" href={site.urls.vsix} download>Download VSIX</a>
+      </div>
+      <p className="note">The first button opens VS Code on the CodeTown page. Press <b>Install</b> there and you are done.</p>
       <ol className="steps">
-        <li><b>01</b><div><h3>Install the extension</h3><p><a href={site.urls.vsix} download>Download <code>codetown.vsix</code></a> (version {site.version}), then run:</p>
+        <li><b>01</b><div><h3>Install the extension</h3><p>Press <b>Install in VS Code</b> above, or run this in a terminal (or <a href={site.urls.vsix} download>download <code>codetown.vsix</code></a>, version {site.version}):</p>
           <div className="cmd"><code>{site.install}</code><button type="button" onClick={copy}>{done ? 'Copied' : 'Copy'}</button></div></div></li>
         <li><b>02</b><div><h3>Open the town</h3><p>Press <code>Ctrl+Shift+P</code> and run <code>CodeTown: Open Town</code>, or click the CodeTown icon in the activity bar.</p></div></li>
         <li><b>03</b><div><h3>Pick a character and give an order</h3><p>Open <b>Crew</b>, choose a character, press a starter prompt. Add an API key, or choose OpenCode for free models.</p></div></li>
@@ -155,11 +164,14 @@ const Install: React.FC = () => {
 
 const Footer: React.FC = () => (
   <footer className="foot">
-    <div><img src="/assets/brand/logo-c-256.png" alt="" width={22} height={22} /> <b>CODETOWN</b> v{site.version} · Made by AKP</div>
+    <div><img src="/assets/brand/logo-c-256.png" alt="" width={22} height={22} /> <b>CODETOWN</b> v{site.version} · Made by AKP · <a href={maker.brand} target="_blank" rel="noreferrer">EnigmaDev</a></div>
     <div className="links">
       <a href={site.urls.github} target="_blank" rel="noreferrer">GitHub</a>
       <a href={site.urls.releases} target="_blank" rel="noreferrer">Releases</a>
       <a href={site.urls.issues} target="_blank" rel="noreferrer">Issues</a>
+      <a href={maker.brand} target="_blank" rel="noreferrer">EnigmaDev</a>
+      <a href={maker.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href={'mailto:' + maker.email}>Email</a>
     </div>
   </footer>
 );
@@ -177,6 +189,7 @@ export const App: React.FC = () => (
       <Features />
       <Engines />
       <Install />
+      <Maker />
     </main>
     <Footer />
   </>
