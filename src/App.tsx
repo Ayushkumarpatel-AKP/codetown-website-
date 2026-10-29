@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CrewStage } from './CrewStage';
 import { CursorFx } from './CursorFx';
 import { CraftBg } from './CraftBg';
+import { MonitorPlayer } from './MonitorPlayer';
 import { SafetyNet } from './SafetyNet';
 import { engines, features, shots, site } from './config/site';
 
@@ -37,13 +38,7 @@ const Hero: React.FC = () => (
         <li>8 characters</li><li>12 engines</li><li>3 city styles</li><li>0 external art assets</li>
       </ul>
     </div>
-    <div className="monitor">
-      <div className="bezel">
-        <div className="screen"><img src="/assets/screenshots/hud-hero.png" alt="CodeTown in VS Code: the isometric city with the Crew Hall open" width={3200} height={1800} fetchPriority="high" /></div>
-        <div className="chin"><i className="led" /><span>CODETOWN</span><em>MODEL CT-{site.version.replace(/\./g, '')}</em></div>
-      </div>
-      <div className="stand" />
-    </div>
+    <MonitorPlayer />
   </section>
 );
 

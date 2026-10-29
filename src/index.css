@@ -268,3 +268,59 @@ html.fx .viewer { cursor: var(--cur, crosshair); }
 .craft-tools { position: absolute; inset: -400px 0 -400px 0; background-size: 760px 760px; background-position: 0 var(--py); opacity: .06; image-rendering: pixelated; }
 .craft-fade { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 38%, rgba(20,17,11,.55) 0%, rgba(20,17,11,0) 62%); }
 @media (max-width: 700px) { .craft-tools { opacity: .05; } }
+
+/* ---- monitor video player ---- */
+.screen.reel { aspect-ratio: 16 / 9; }
+.reel-stage { position: relative; width: 100%; transform-origin: 0 0; will-change: transform; }
+.reel-stage img { display: block; width: 100%; height: auto; }
+.reel-in { animation: reelIn .5s steps(10) both; }
+@keyframes reelIn { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.reel-pointer { position: absolute; width: 0; height: 0; pointer-events: none; z-index: 3; animation: ptr 1.5s steps(15) .8s both; }
+.reel-pointer .reel-arrow { position: absolute; left: 0; top: 0; filter: drop-shadow(2px 2px 0 rgba(0,0,0,.45)); }
+.reel-pointer i { position: absolute; left: -16px; top: -16px; width: 32px; height: 32px; border: 3px solid var(--accent); border-radius: 50%; opacity: 0; animation: ring .9s steps(6) 2.4s infinite; }
+@keyframes ptr { from { transform: translate(-150px, 110px); opacity: 0; } 12% { opacity: 1; } to { transform: translate(0, 0); opacity: 1; } }
+@keyframes ring { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+.reel-osd, .reel-paused { position: absolute; z-index: 4; font: 400 26px var(--display); letter-spacing: .12em; color: #e9e3cf; text-shadow: 2px 2px 0 #14110b, -1px -1px 0 #14110b; pointer-events: none; }
+.reel-osd { top: 12px; right: 16px; color: #7bd88f; }
+.reel-paused { left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 22px; color: var(--accent); animation: blink 1s steps(2) infinite; }
+.chin.vcr { display: block; padding: 10px 4px 2px; font: 400 16px var(--display); letter-spacing: .08em; }
+.vcr-cap { display: flex; gap: 12px; align-items: baseline; min-height: 40px; color: #3b3320; font: 600 12px/1.45 var(--mono); letter-spacing: 0; }
+.vcr-cap b { flex: 0 0 auto; font: 400 18px var(--display); letter-spacing: .12em; color: #6e6238; }
+.vcr-cap strong { color: #14110b; }
+.vcr-bar { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
+.vcr-btns { display: flex; gap: 6px; flex: 0 0 auto; }
+.vcr-btns button { display: grid; place-items: center; width: 38px; height: 30px; padding: 0; background: #efe9d4; color: #3b3320; border: 2px solid #8a7f5a; border-radius: 3px; box-shadow: 0 3px 0 #b9af8f; cursor: pointer; transition: transform .06s steps(1), box-shadow .06s steps(1); }
+.vcr-btns button.main { width: 52px; background: #c9a63a; border-color: #6e6238; color: #1a1408; }
+.vcr-btns button:hover { background: #fff8de; }
+.vcr-btns button.main:hover { background: #d8b64a; }
+.vcr-btns button:active { transform: translateY(3px); box-shadow: none; }
+.vcr-btns svg { width: 16px; height: 16px; fill: currentColor; }
+.vcr-track { display: flex; gap: 3px; flex: 1 1 auto; min-width: 0; }
+.vcr-track .seg { position: relative; flex: 1; height: 10px; padding: 0; background: #b9af8f; border: 2px solid #8a7f5a; border-radius: 1px; cursor: pointer; overflow: hidden; }
+.vcr-track .seg.done { background: #8f7a2a; border-color: #6e6238; }
+.vcr-track .seg:hover { border-color: #3b3320; }
+.vcr-track .fill { position: absolute; inset: 0; background: #c9a63a; transform-origin: left; animation: fillbar linear both; }
+@keyframes fillbar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.vcr-bar em { flex: 0 0 auto; font: 700 10px var(--mono); font-style: normal; letter-spacing: .14em; color: #8a7f5a; }
+@media (max-width: 640px) { .vcr-bar em { display: none; } .vcr-cap { font-size: 11px; min-height: 48px; } .vcr-btns button { width: 34px; } }
+@media (prefers-reduced-motion: reduce) { .reel-in, .reel-pointer, .reel-pointer i, .vcr-track .fill, .reel-paused { animation: none; } .reel-stage { transition: none !important; } }
+
+/* ---- smooth flow: soft easing instead of stepped retro motion (colors and look stay retro) ---- */
+:root { --ease: cubic-bezier(.22, .61, .36, 1); --ease-io: cubic-bezier(.45, .05, .25, 1); }
+.btn, .tabs button, .cmd button, .card, .engines li, .slot, .orders button, .cart, .safe-steps button, .vcr-btns button { transition: transform .25s var(--ease), border-color .2s var(--ease), box-shadow .25s var(--ease), background-color .2s var(--ease); }
+.pedestal { animation: idleBob 3.2s ease-in-out infinite; }
+.pedestal.working { animation: workShake .6s ease-in-out infinite; }
+.pedestal.waiting { animation: idleBob 1.4s ease-in-out infinite; }
+.pedestal.done { animation: cheer .7s ease-out 2; }
+.wipe { animation: fadeIn .8s ease both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.safe-clip img { transition: transform 1.6s var(--ease-io); }
+.reel-in { animation: fadeIn 1s ease both; clip-path: none; }
+.reel-under { position: absolute; inset: 0; width: 100%; height: 100%; }
+.reel-stage > img:not(.reel-under) { position: relative; }
+.reel-pointer { animation: ptr 1.4s var(--ease-io) 1.8s both; }
+.reel-pointer i { animation: ring 1.2s ease-out 3.2s infinite; }
+@keyframes ptr { from { transform: translate(-90px, 70px); opacity: 0; } 25% { opacity: 1; } to { transform: translate(0, 0); opacity: 1; } }
+.capfade { animation: fadeIn .7s ease both; }
+.vcr-track .fill { animation-timing-function: linear; }
+@media (prefers-reduced-motion: reduce) { .reel-in, .capfade { animation: none; } }
