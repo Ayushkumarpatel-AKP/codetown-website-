@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CodeTown — Interactive Isometric City Experience for VS Code</title>
+    <meta name="theme-color" content="#14110b" />
+    <title>CodeTown: your codebase as a living city, with an AI crew</title>
     <meta
       name="description"
-      content="Explore your codebase as a living isometric city inside VS Code. Files become buildings, imports connect districts, and diagnostics light up the skyline. 100% offline with zero cloud or telemetry."
+      content="CodeTown turns your repository into an isometric city inside VS Code and gives you a crew of eight AI characters to command from a game HUD. Free and local engines supported."
     />
     <meta name="author" content="AKP · EnigmaDev" />
     <link rel="canonical" href="https://codetown.enigmadev.tech/" />
@@ -19,7 +20,7 @@
       property="og:description"
       content="Explore your codebase as a living isometric city inside VS Code. 100% offline, zero cloud, zero telemetry."
     />
-    <meta property="og:image" content="https://codetown.enigmadev.tech/assets/screenshots/codetown-city.png" />
+    <meta property="og:image" content="https://codetown.enigmadev.tech/assets/screenshots/hud-city.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -29,7 +30,7 @@
       name="twitter:description"
       content="Explore your codebase as a living isometric city inside VS Code. Files become buildings, imports connect districts."
     />
-    <meta name="twitter:image" content="https://codetown.enigmadev.tech/assets/screenshots/codetown-city.png" />
+    <meta name="twitter:image" content="https://codetown.enigmadev.tech/assets/screenshots/hud-city.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/brand/icon.png" />
@@ -38,12 +39,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-background text-foreground antialiased selection:bg-teal selection:text-foreground overflow-x-hidden">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

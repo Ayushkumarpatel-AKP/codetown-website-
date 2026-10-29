@@ -1,141 +1,76 @@
-export interface SiteConfig {
-  name: string;
-  tagline: string;
-  description: string;
-  version: string;
-  creator: {
-    name: string;
-    credit: string;
-  };
-  brand: {
-    name: string;
-    url: string;
-  };
-  urls: {
-    marketplace: string;
-    github: string;
-    releases: string;
-    issues: string;
-    production: string;
-  };
-  quickInstallCommand: string;
-  features: {
-    id: string;
-    title: string;
-    badge: string;
-    description: string;
-    details: string[];
-    image: string;
-  }[];
-  steps: {
-    number: string;
-    title: string;
-    description: string;
-    command?: string;
-  }[];
-}
-
-export const siteConfig: SiteConfig = {
+export const site = {
   name: 'CodeTown',
-  tagline: 'Your Codebase, Reimagined as a City',
-  description:
-    'Explore your codebase as a living, interactive isometric world inside VS Code. Files become buildings, folders become districts, imports connect the skyline, and diagnostics pinpoint real issues — 100% offline with zero cloud, zero telemetry, and zero AI overhead.',
-  version: '0.2.4',
-  creator: {
-    name: 'AKP',
-    credit: 'Made by AKP',
-  },
-  brand: {
-    name: 'EnigmaDev',
-    url: 'https://enigmadev.tech',
-  },
+  version: '0.9.5',
+  tagline: 'Your codebase as a living city. Command a crew of AI characters from a game HUD.',
   urls: {
-    // Configurable central links - matches CodeTown repository & marketplace
     marketplace: 'https://marketplace.visualstudio.com/items?itemName=AyushKumarPatel.codetown',
     github: 'https://github.com/Ayushkumarpatel-AKP/CodeTown',
     releases: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/releases',
     issues: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/issues',
-    production: 'https://codetown.enigmadev.tech/',
   },
-  quickInstallCommand: 'ext install AyushKumarPatel.codetown',
-  features: [
-    {
-      id: 'isometric-city',
-      title: 'Codebase as a Living Island',
-      badge: 'Deterministic Layout',
-      description:
-        'Every source file is placed on a bounded isometric island. Hub files tower with greater height, while folders cluster naturally into coherent districts with perimeter roads and green fringe forests.',
-      details: [
-        'Deterministic collision-free layout — identical repository yields identical city',
-        'Large districts safely split into sibling blocks (src·01, src·02) to prevent clutter',
-        'Physical road grid carved with verified curb & asphalt connectivity masks',
-        'Pan, zoom, fly-to search, and interactive minimap navigation',
-      ],
-      image: '/assets/screenshots/codetown-city.png',
-    },
-    {
-      id: 'dependency-highways',
-      title: 'Verified Dependency Highways',
-      badge: 'Interactive Relations',
-      description:
-        'Toggle the Relations overlay to reveal glowing blue dependency lines connecting caller and callee. Imports are analyzed from real TypeScript, JavaScript, and Python codebases.',
-      details: [
-        'Distinguishes physical street infrastructure from logical dependency lines',
-        'Deep static analysis: masked-source parser ignores comments and string brackets',
-        'Detects import cycles and promotes central hubs by graph degree',
-        'Day & Night lighting toggle with glowing neon night ambiance',
-      ],
-      image: '/assets/screenshots/codetown-night-relations.png',
-    },
-    {
-      id: 'skyline-diagnostics',
-      title: 'Skyline Diagnostics & Jump-to-Source',
-      badge: 'Actionable Insights',
-      description:
-        'Real bracket, indentation, and syntax issues illuminate buildings in amber and red. Click any building to view its inspector card and jump straight to the source file at the exact recorded line.',
-      details: [
-        'Inspector displays file path, symbols, incoming/outgoing imports, and diagnostics',
-        'Never fabricates errors — every finding carries strict line evidence',
-        'One-click jump opens the exact file in VS Code at the recorded line',
-        'Incremental fingerprint cache updates your town in 6–8 ms on file save',
-      ],
-      image: '/assets/screenshots/codetown-diagnostics-demo-diagnostics.png',
-    },
-    {
-      id: 'zero-cloud',
-      title: '100% Offline & Customizable Sprites',
-      badge: 'Privacy & Control',
-      description:
-        'Analysis, layout, and rendering run entirely on your local machine. No cloud uploads, no API keys, no telemetry, and full support for custom sprite packs via folder or ZIP.',
-      details: [
-        'Runs completely offline — no network requests, no telemetry, locked webview CSP',
-        'Import custom sprite packs (.zip or folder) with automatic semantic slot mapping',
-        'Pixel-verified road tile masks ensure realistic road junctions and corners',
-        'Edit mode: drag buildings to customize your town with Ctrl+Z / Ctrl+Y history',
-      ],
-      image: '/assets/screenshots/codetown-zoom.png',
-    },
-  ],
-  steps: [
-    {
-      number: '01',
-      title: 'Install CodeTown in VS Code',
-      description:
-        'Install directly from the Visual Studio Marketplace or grab the pre-packaged VSIX from GitHub Releases.',
-      command: 'code --install-extension codetown.vsix',
-    },
-    {
-      number: '02',
-      title: 'Open Your Project & Launch Town',
-      description:
-        'Press Ctrl+Shift+P, type "CodeTown: Open Town", and watch local static analysis construct your town in milliseconds.',
-      command: 'Ctrl+Shift+P → CodeTown: Open Town',
-    },
-    {
-      number: '03',
-      title: 'Navigate, Inspect & Jump to Source',
-      description:
-        'Explore your city architecture, toggle night & relations modes, search with Ctrl+K, and click any building to edit code.',
-    },
-  ],
+  install: 'code --install-extension codetown.vsix',
 };
+
+export interface Character {
+  id: string;
+  name: string;
+  title: string;
+  blurb: string;
+  effort: string;
+  tier: string;
+  readOnly: boolean;
+  prompts: string[];
+}
+
+/** Mirrors src/crew/characters.ts in the extension (trimmed to what the site shows). */
+export const crew: Character[] = [
+  { id: 'scout', name: 'Scout', title: 'Explorer', effort: 'low', tier: 'fast model', readOnly: true,
+    blurb: 'Explores the codebase and explains how it works. Never edits anything.',
+    prompts: ['Give me a tour', 'Where is it?', 'How do I run it?', 'Riskiest files'] },
+  { id: 'architect', name: 'Archie', title: 'Architect', effort: 'high', tier: 'big model', readOnly: true,
+    blurb: 'Designs big changes before anyone builds them: plans, trade-offs, step lists.',
+    prompts: ['Plan a refactor', 'Design a feature', 'Untangle imports', 'Speed it up'] },
+  { id: 'builder', name: 'Builder', title: 'Feature builder', effort: 'medium', tier: 'mid model', readOnly: false,
+    blurb: 'Implements features in small, checked steps and asks before it edits.',
+    prompts: ['Add a feature', 'Add an endpoint', 'Change behavior', 'Migrate'] },
+  { id: 'fixer', name: 'Fixer', title: 'Bug hunter', effort: 'high', tier: 'mid model', readOnly: false,
+    blurb: 'Finds the root cause of a bug and fixes it, with a test that proves it.',
+    prompts: ['Fix failing tests', 'Explain this error', 'Hunt a bug here', 'Clean type errors'] },
+  { id: 'tester', name: 'Tester', title: 'Test writer', effort: 'medium', tier: 'mid model', readOnly: false,
+    blurb: 'Writes and runs tests, and reproduces bugs as failing tests.',
+    prompts: ['Test this file', 'Cover the risky part', 'Reproduce a bug', 'Run and summarise'] },
+  { id: 'reviewer', name: 'Reviewer', title: 'Code reviewer', effort: 'high', tier: 'mid model', readOnly: true,
+    blurb: 'Reviews code like a careful teammate: bugs, security, missing cases.',
+    prompts: ['Review my changes', 'Review this file', 'Security check', 'Review this PR'] },
+  { id: 'scribe', name: 'Scribe', title: 'Docs writer', effort: 'low', tier: 'fast model', readOnly: false,
+    blurb: 'Writes docs, comments and changelogs from the real code.',
+    prompts: ['Explain a module', 'Add docstrings', 'Write release notes', 'Quick start'] },
+  { id: 'runner', name: 'Runner', title: 'Errand runner', effort: 'low', tier: 'fast model', readOnly: false,
+    blurb: 'Fast and cheap for small jobs: renames, formatting, tidy-ups.',
+    prompts: ['Rename', 'Remove dead code', 'Tidy imports', 'Fix typos'] },
+];
+
+export const shots = [
+  { id: 'city', label: 'Modern', src: '/assets/screenshots/hud-city.png', note: 'Landmarks, roads and rivers built from your folders. Every building is a real file.' },
+  { id: 'hifi', label: 'Hi-fi', src: '/assets/screenshots/hud-hifi.png', note: 'Neon towers, helipads and glowing windows for big repositories.' },
+  { id: 'village', label: 'Village', src: '/assets/screenshots/hud-village.png', note: 'Cottages and cobbles for small projects. Same data, different art.' },
+  { id: 'night', label: 'Night + relations', src: '/assets/screenshots/hud-night.png', note: 'Night lighting with import lines drawn between buildings.' },
+  { id: 'crews', label: 'Crews at work', src: '/assets/screenshots/hud-crews.png', note: 'Cranes on live construction sites, heat on busy files, a permit waiting for your stamp.' },
+  { id: 'inspector', label: 'Inspector', src: '/assets/screenshots/hud-inspector.png', note: 'Symbols, imports and findings for any building, with a jump to the exact line.' },
+];
+
+export const features = [
+  { tag: 'MAP', title: 'Files are buildings', text: 'Folders become districts, big folders become landmarks. The layout is deterministic: the same repo always builds the same city.' },
+  { tag: 'CREW', title: 'Eight characters, ready to work', text: 'Each has a pixel face, a job, a thinking level and four starter prompts. Scout, Archie and Reviewer are read-only by design.' },
+  { tag: 'LIVE', title: 'Watch construction', text: 'Cranes rise over the files a crew edits. Busy files glow with heat from git history. Errors bring rain.' },
+  { tag: 'SAFE', title: 'You stamp every risky move', text: 'Permits show exactly what a crew wants to run. STAMP or DENY. A spend cap and a HALT button stop runaway work.' },
+  { tag: 'PR', title: 'Pull-request cities', text: 'Every open PR becomes its own read-only city with added, changed and removed buildings marked.' },
+  { tag: 'ENGINE', title: 'Bring any model', text: 'Claude Agent SDK, OpenCode with free models, Groq, OpenRouter, Gemini, Ollama, LM Studio or any OpenAI-compatible server. Pick the model from a live list.' },
+];
+
+export const engines: { name: string; free: boolean }[] = [
+  { name: 'Claude Agent SDK', free: false }, { name: 'OpenCode', free: true }, { name: 'Groq', free: true },
+  { name: 'OpenRouter', free: true }, { name: 'Gemini', free: true }, { name: 'Cerebras', free: true },
+  { name: 'Mistral', free: false }, { name: 'Together', free: false }, { name: 'OpenAI', free: false },
+  { name: 'Ollama (local)', free: true }, { name: 'LM Studio (local)', free: true }, { name: 'Custom endpoint', free: false },
+];
