@@ -3,7 +3,7 @@ import { site } from './config/site';
 
 /**
  * Opens VS Code straight on the CodeTown extension page (vscode:extension/<id>), where one click installs it.
- * If VS Code does not take focus within a moment, offers the Marketplace page and the VSIX instead.
+ * If VS Code does not take focus within a moment, offers the Marketplace page instead.
  */
 export const InstallButton: React.FC<{ label?: string; className?: string }> = ({ label = 'Install in VS Code', className = '' }) => {
   const [hint, setHint] = useState(false);
@@ -30,7 +30,7 @@ export const InstallButton: React.FC<{ label?: string; className?: string }> = (
       </a>
       {hint && (
         <span className="install-hint" role="status">
-          VS Code did not open? <a href={site.urls.marketplace} target="_blank" rel="noreferrer">Open the Marketplace page</a> or <a href={site.urls.vsix} download>download the VSIX</a>.
+          VS Code did not open? <a href={site.urls.marketplace} target="_blank" rel="noreferrer">Open the Marketplace page</a>.
         </span>
       )}
     </span>

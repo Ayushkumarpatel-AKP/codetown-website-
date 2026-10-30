@@ -8,7 +8,6 @@ export const site = {
     vscode: 'vscode:extension/AyushKumarPatel.codetown',
     github: 'https://github.com/Ayushkumarpatel-AKP/CodeTown',
     releases: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/releases',
-    vsix: '/downloads/codetown.vsix',
     issues: 'https://github.com/Ayushkumarpatel-AKP/CodeTown/issues',
   },
   install: 'code --install-extension AyushKumarPatel.codetown',
